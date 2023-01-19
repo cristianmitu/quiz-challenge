@@ -15,12 +15,13 @@ let questionsEl = document.querySelector("#questions");
 let questionsTitleEl = document.querySelector("#question-title");
 let choicesEl = document.querySelector("#choices");
 let timerEl = document.querySelector("#time");
+let finalScore = document.querySelector("#final-score");
 let quizTimer = 100;
 let quizInterval;
 let currentQuestion;
 let answers;
+let userScore;
 let corectAnswer;
-let score;
 let failSound = new Audio("./assets/sfx/incorrect.wav")
 let successSound = new Audio("./assets/sfx/correct.wav")
 
@@ -41,11 +42,12 @@ function endQuiz() {
         endScreenEl.setAttribute("class" , "start");
         questionsEl.setAttribute("class","hide");
         quizInterval = clearInterval(quizInterval);
+        userScore = quizTimer;
+        finalScore.append(userScore);
 });
 
 }
 startQuiz();
-endQuiz();
 
 function quizQuestions() {
     
@@ -53,7 +55,7 @@ function quizQuestions() {
         
         currentQuestion = questions[i].question;    
         corectAnswer = questions[i].corectAnswer[0];
-        // questionsTitleEl.textContent = currentQuestion;
+        questionsTitleEl.textContent = currentQuestion;
         //questionsEl.setAttribute("class",""); 
         console.log("current question",currentQuestion);
         console.log("corect answer : ",corectAnswer);
@@ -61,9 +63,10 @@ function quizQuestions() {
             answers = questions[i].answers[j];
             let answersBtn = document.createElement("button");            
             answersBtn.textContent = answers;
-            answersBtn.appendChild(choicesEl);
+            choicesEl.appendChild(answersBtn);
             console.log("answers : ",answers);
         }
+        
         console.log(questionsTitleEl.textContent = currentQuestion);
     };
     return currentQuestion , answers;
